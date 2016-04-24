@@ -2,8 +2,8 @@ named-sprintf
 =============
 
 [![Build Status](https://travis-ci.org/lightster/named-sprintf.svg?branch=master)](https://travis-ci.org/lightster/named-sprintf)
-[![Code Climate](https://codeclimate.com/github/lightster/named-sprintf/badges/gpa.svg)](https://codeclimate.com/github/lightster/named-sprintf)
 [![Test Coverage](https://codeclimate.com/github/lightster/named-sprintf/badges/coverage.svg)](https://codeclimate.com/github/lightster/named-sprintf/coverage)
+[![Code Climate](https://codeclimate.com/github/lightster/named-sprintf/badges/gpa.svg)](https://codeclimate.com/github/lightster/named-sprintf)
 
 Enhance PHP sprintf with Python-style named parameters
 
