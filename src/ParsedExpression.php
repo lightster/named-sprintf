@@ -48,7 +48,12 @@ class ParsedExpression
                 );
             }
 
-            $parsed_parameters[] = $middleware($param_name, $parameters[$param_name], []);
+            $parsed_parameters[] = call_user_func(
+                $middleware,
+                $param_name,
+                $parameters[$param_name],
+                []
+            );
         }
 
         return vsprintf($this->parsed_format, $parsed_parameters);
