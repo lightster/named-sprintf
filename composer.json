@@ -1,0 +1,24 @@
+{
+    "name": "lightster/named-sprintf",
+    "description": "Enhance PHP sprintf with Python-style named parameters",
+    "keywords": [
+        "php",
+        "sprintf",
+        "python",
+        "named",
+        "params"
+    ],
+    "homepage": "http://github.com/lightster/named-sprintf",
+    "autoload": {
+        "psr-4": {
+            "Lstr\\Sprintf\\": "src/"
+        }
+    },
+    "require": {
+        "php": ">=5.5.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^4.8.0",
+        "codeclimate/php-test-reporter": "dev-master"
+    }
+}
