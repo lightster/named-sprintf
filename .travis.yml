@@ -1,0 +1,20 @@
+language: php
+
+php:
+  - 5.5
+  - 5.6
+  - 7.0
+
+install:
+  - composer install
+
+after_script:
+  - vendor/bin/test-reporter --coverage-report=tests/log/coverage.xml
+
+notifications:
+  slack:
+    rooms:
+      secure: THIU+EnX2IN9+5ZyWDBQPBh7FJadNvDbC7GTpw1i+G3VEiSdqXA57NZO1rb3FElvpT1d0m7GUONUDJGtMlW8sFaYVVBaEpKwUrRoYlzu4uVlJlsvpse91hyfjva1SkTCqHcuFn+UcHmZgRVb/ubhlaLncplRUW6gbAWyZBrwCHuobtdxGd31bBxZBE814rQeFr6F1cR+LAYg4C4ATApgkXsGJDdznkDLrnjBX2MWet8Ex+RIBAEGttmUKWAat2Lc55DEjWEVPIi6t9sFE5aek1Rt0B3WdTmSvh2MziYaZzd3gle01BmAp4ATKFYCmvQMzaQqm7Sf3eH795ZrDttzlsk8wuQeVm6ziPoBZJrvS/+69RUQAG8+iXj6KouNvS1CmTnMMk0ZZvy2IMDXUqdRFxHFVqVJb7oAD1lTY0TeY7soxGBj1iLjnlXtWM0sZCVuVRSlp+IB01e1LT807qwrr5jna5oRCXClp4J/hj6VG5NGn7G3HC2CEtLg25xJfQM3c6abOJC3+j2xxsXboqAdNFilKvAER/lsa1oYHhyiJcyBoE55ufvUmWlrLKELwdjao5WY6qP+CwqgOmTOkm7an4oLxW7pmVX+HOgvmpAUVcknw4d6Sg4AOkMwpFjMhJrc7TRQX1P1epo5PxUDa7goSaGJawOnqVRpDrSLHE5Zkjc=
+    on_success: change
+    on_failure: always
+    on_start:   change
