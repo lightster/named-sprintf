@@ -51,6 +51,28 @@ class SprintfTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testMiddlewarePreprocessesValues()
+    {
+        $this->assertEquals(
+            "php bin/my-script 'config/config.php'",
+            Sprintf::sprintf(
+                'php %(script_path)s %(config_path)s',
+                [
+                    'script_path'   => 'bin/my-script',
+                    'config_path'   => 'config/config.php',
+                ],
+                function ($name, $value) {
+                    if ('script_path' === $name) {
+                        return $value;
+                    }
+
+                    return escapeshellarg($value);
+                }
+            ),
+            "Test that middleware can be provided to pre-process values"
+        );
+    }
+
     /**
      * @return array
      */

@@ -7,12 +7,13 @@ class Processor
     /**
      * @param string $format
      * @param array $parameters
+     * @param callable $middleware
      * @return string
      * @throws Exception
      */
-    public function sprintf($format, array $parameters)
+    public function sprintf($format, array $parameters, callable $middleware = null)
     {
-        $parsed_parameters = [];
+        $parameter_map = [];
         $replacement_sets = [];
         $matches = [];
         $pattern = '
@@ -60,14 +61,10 @@ class Processor
                     continue;
                 }
 
-                if (!array_key_exists($named_param, $parameters)) {
-                    throw new Exception(
-                        "The '{$named_param}' parameter was in the format string but was not provided"
-                    );
-                }
-
                 $replacement_sets[$match[0]] = "{$percent_signs}{$sprintf_format}";
-                $parsed_parameters[] = $parameters[$named_param];
+                $parameter_map[] = [
+                    'name' => $named_param,
+                ];
             }
         }
 
@@ -75,6 +72,8 @@ class Processor
         $replacements = array_values($replacement_sets);
         $parsed_format = str_replace($searches, $replacements, $format);
 
-        return vsprintf($parsed_format, $parsed_parameters);
+        $parsed_expression = new ParsedExpression($parsed_format, $parameter_map);
+
+        return $parsed_expression->format($parameters, $middleware);
     }
 }
