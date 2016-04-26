@@ -87,15 +87,15 @@ class SprintfTest extends PHPUnit_Framework_TestCase
             ],
             [
                 "Test that named parameters are only recognized if sprintf directive is valid",
-                'Hello %(first_name) Light',
+                'Hello Matt Light',
                 'Hello %(first_name) %(last_name)s',
                 ['first_name' => 'Matt', 'last_name' => 'Light'],
             ],
             [
                 "Test that no parameters are required",
+                'Hello Matt',
                 'Hello %(first_name)',
-                'Hello %(first_name)',
-                [],
+                ['first_name' => 'Matt'],
             ],
             [
                 "Test that a floating point number can be formatted",
