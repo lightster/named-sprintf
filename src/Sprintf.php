@@ -12,12 +12,12 @@ class Sprintf
     /**
      * @param string $format
      * @param array $parameters
+     * @param callable $middleware
      * @return string
-     * @throws Exception
      */
-    public static function sprintf($format, array $parameters)
+    public static function sprintf($format, array $parameters, callable $middleware = null)
     {
-        return self::getProcessor()->sprintf($format, $parameters);
+        return self::getProcessor()->sprintf($format, $parameters, $middleware);
     }
 
     /**
