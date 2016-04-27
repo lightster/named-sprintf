@@ -57,8 +57,7 @@ class Processor
 
                 // if it is not a valid sprintf directive, escape the %
                 if (!$sprintf_format) {
-                    $replacement_sets[$match[0]] = "{$percent_signs}%({$named_param})";
-                    continue;
+                    $sprintf_format = 's';
                 }
 
                 $replacement_sets[$match[0]] = "{$percent_signs}{$sprintf_format}";
