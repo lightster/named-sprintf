@@ -32,14 +32,39 @@ $welcome_message = Sprintf::sprintf(
     ['first_name' => 'Matt', 'last_name' => 'Light']
 );
 
+$optional_type_message = Sprintf::sprintf(
+    'The %(type) is optional and defaults to "%(default_type)"!',
+    ['type' => 'type specifier', 'default_type' => '%s']
+);
+
 $pi_message = Sprintf::sprintf(
     'PI is approximately %(pi).5f, or %(pi).8f if you need more accuracy',
     ['pi' => pi()]
 );
 
+$middleware_message = Sprintf::sprintf(
+    'Middleware %(action_words) to pre-process %(what)!',
+    [
+        'action_words' => ['can', 'be', 'used'],
+        'what'         => 'parameters',
+    ],
+    function ($name, $value) {
+        if (is_array($value)) {
+            return implode(' ', $value);
+        }
+
+        return $value;
+    }
+);
+
 echo Sprintf::sprintf(
-    "%(welcome-message)s\n%(pi-message)s\n",
-    ['welcome-message' => $welcome_message, 'pi-message' => $pi_message]
+    "%(welcome)s\n%(optional-type)s\n%(pi)s\n%(middleware)s\n",
+    [
+        'welcome'       => $welcome_message,
+        'optional-type' => $optional_type_message,
+        'pi'            => $pi_message,
+        'middleware'    => $middleware_message,
+    ]
 );
 
 ```
