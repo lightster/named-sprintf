@@ -163,6 +163,12 @@ class SprintfTest extends PHPUnit_Framework_TestCase
                 '%%(hi there)s ... %%(hi)s',
                 [],
             ],
+            [
+                "Test that param names can contain commas and colons",
+                'Tada!',
+                '%(hi:there-friend)s!',
+                ['hi:there-friend' => "Tada"],
+            ],
         ];
     }
 

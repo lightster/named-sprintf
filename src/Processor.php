@@ -23,7 +23,7 @@ class Processor
                     (?:%%)*%
                 ) # 1: the percent sign(s)
                 \( # literal open paren
-                    ([a-zA-Z_][a-zA-Z0-9_\-]*?) # 2: the name of the param
+                    ([a-zA-Z_][a-zA-Z0-9_\-,:]*?) # 2: the name of the param
                 \) # literal close paren
 
                 (
