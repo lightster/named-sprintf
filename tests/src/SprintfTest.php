@@ -61,7 +61,9 @@ class SprintfTest extends PHPUnit_Framework_TestCase
                     'script_path'   => 'bin/my-script',
                     'config_path'   => 'config/config.php',
                 ],
-                function ($name, $value) {
+                function ($name, callable $values) {
+                    $value = $values($name);
+
                     if ('script_path' === $name) {
                         return $value;
                     }
