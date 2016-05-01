@@ -48,7 +48,9 @@ $middleware_message = Sprintf::sprintf(
         'action_words' => ['can', 'be', 'used'],
         'what'         => 'parameters',
     ],
-    function ($name, $value) {
+    function ($name, callable $values) {
+        $value = $values($name);
+
         if (is_array($value)) {
             return implode(' ', $value);
         }
