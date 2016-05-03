@@ -11,3 +11,6 @@ engines:
     config:
       file_extensions: "php"
       rulesets: "cleancode,codesize,design,naming,unusedcode"
+ratings:
+  paths:
+    - "**.php"
