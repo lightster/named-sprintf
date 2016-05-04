@@ -8,8 +8,8 @@ class MiddlewareAdapterTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @covers Lstr\Sprintf\Middleware\AbstractInvokable::__construct
-     * @covers Lstr\Sprintf\Middleware\MiddlewareAdapter::__invoke
-     * @covers Lstr\Sprintf\Middleware\MiddlewareAdapter::invokeProcess
+     * @covers Lstr\Sprintf\Middleware\AbstractInvokable::__invoke
+     * @covers Lstr\Sprintf\Middleware\AbstractInvokable::invokeProcess
      * @covers Lstr\Sprintf\Middleware\MiddlewareAdapter::__construct
      * @covers Lstr\Sprintf\Middleware\MiddlewareAdapter::process
      */
@@ -26,8 +26,8 @@ class MiddlewareAdapterTest extends PHPUnit_Framework_TestCase
 
     /**
      * @covers Lstr\Sprintf\Middleware\AbstractInvokable::__construct
-     * @covers Lstr\Sprintf\Middleware\MiddlewareAdapter::__invoke
-     * @covers Lstr\Sprintf\Middleware\MiddlewareAdapter::invokeProcess
+     * @covers Lstr\Sprintf\Middleware\AbstractInvokable::__invoke
+     * @covers Lstr\Sprintf\Middleware\AbstractInvokable::invokeProcess
      * @covers Lstr\Sprintf\Middleware\MiddlewareAdapter::__construct
      * @covers Lstr\Sprintf\Middleware\MiddlewareAdapter::process
      */
