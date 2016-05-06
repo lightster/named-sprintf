@@ -41,10 +41,7 @@ class InvokableParamsTest extends PHPUnit_Framework_TestCase
     public function testValuesCallbackCanBeRetrievedAndUsed()
     {
         $uniqid = uniqid();
-        $callback = function ($name) use ($uniqid) {
-            return "{$name}-{$uniqid}";
-        };
-        $params = new InvokableParams('not-so-important', $callback, []);
+        $params = $this->getInvokableParamsForValueTest($uniqid);
 
         $values_callback = $params->getValuesCallback();
 
@@ -60,10 +57,7 @@ class InvokableParamsTest extends PHPUnit_Framework_TestCase
     public function testValuesCanBeOverridden()
     {
         $uniqid = uniqid();
-        $callback = function ($name) use ($uniqid) {
-            return "{$name}-{$uniqid}";
-        };
-        $params = new InvokableParams('not-so-important', $callback, []);
+        $params = $this->getInvokableParamsForValueTest($uniqid);
 
         $override_value = "hi-there-{$uniqid}";
         $params->setValue($override_value);
@@ -82,10 +76,7 @@ class InvokableParamsTest extends PHPUnit_Framework_TestCase
     public function testValuesCanBeAdded()
     {
         $uniqid = uniqid();
-        $callback = function ($name) use ($uniqid) {
-            return "{$name}-{$uniqid}";
-        };
-        $params = new InvokableParams('not-so-important', $callback, []);
+        $params = $this->getInvokableParamsForValueTest($uniqid);
 
         $override_value = "hi-there-{$uniqid}";
         $params->addValue('hi', $override_value);
@@ -147,5 +138,17 @@ class InvokableParamsTest extends PHPUnit_Framework_TestCase
         $params->setOption('hi', 'there');
 
         $this->assertEquals('there', $params->getOption('hi'));
+    }
+
+    /**
+     * @param string $uniqid
+     * @return InvokableParams
+     */
+    private function getInvokableParamsForValueTest($uniqid)
+    {
+        $callback = function ($name) use ($uniqid) {
+            return "{$name}-{$uniqid}";
+        };
+        return new InvokableParams('not-so-important', $callback, []);
     }
 }
