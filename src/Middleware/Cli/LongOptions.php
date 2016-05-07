@@ -5,7 +5,7 @@ namespace Lstr\Sprintf\Middleware\Cli;
 use Lstr\Sprintf\Middleware\AbstractInvokable;
 use Lstr\Sprintf\Middleware\InvokableParams;
 
-class LongOpts extends AbstractInvokable
+class LongOptions extends AbstractInvokable
 {
     /**
      * @param InvokableParams $params
@@ -14,7 +14,7 @@ class LongOpts extends AbstractInvokable
     {
         $name = $params->getName();
 
-        if ('long-opts' !== $params->getOption('type', $name)) {
+        if ('long-options' !== $params->getOption('type', $name)) {
             return;
         }
 
