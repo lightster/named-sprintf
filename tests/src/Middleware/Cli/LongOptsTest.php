@@ -60,7 +60,6 @@ class LongOptsTest extends PHPUnit_Framework_TestCase
     public function testStringIsUsedAsValue()
     {
         $long_opts = new LongOpts();
-        $values_callback = $this->getValuesCallback();
 
         $this->assertSame(
             "--gogo='ogog'",
