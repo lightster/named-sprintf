@@ -4,6 +4,8 @@ engines:
     config:
       languages:
         - php
+    exclude_paths:
+      - "**.dataset.php"
   fixme:
     enabled: true
   phpmd:
