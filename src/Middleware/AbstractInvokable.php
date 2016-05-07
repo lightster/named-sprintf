@@ -41,7 +41,7 @@ abstract class AbstractInvokable
     /**
      * @param InvokableParams $params
      */
-    private function invokeProcess(InvokableParams $params)
+    protected function invokeProcess(InvokableParams $params)
     {
         if ($this->invokable) {
             call_user_func([$this->invokable, 'invokeProcess'], $params);
