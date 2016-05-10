@@ -55,7 +55,6 @@ class Processor
                 $named_param = $match[2];
                 $sprintf_format = $match[3];
 
-                // if it is not a valid sprintf directive, escape the %
                 if (!$sprintf_format) {
                     $sprintf_format = 's';
                 }
