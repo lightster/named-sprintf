@@ -7,7 +7,15 @@ class Sprintf
     /**
      * @var Processor
      */
-    private static $processor;
+    private $processor;
+
+    /**
+     * @param Processor $processor
+     */
+    public function __construct(Processor $processor = null)
+    {
+        $this->processor = $processor;
+    }
 
     /**
      * @param string $format
@@ -15,22 +23,22 @@ class Sprintf
      * @param callable $middleware
      * @return string
      */
-    public static function sprintf($format, array $parameters, callable $middleware = null)
+    public function sprintf($format, array $parameters, callable $middleware = null)
     {
-        return self::getProcessor()->sprintf($format, $parameters, $middleware);
+        return $this->getProcessor()->sprintf($format, $parameters, $middleware);
     }
 
     /**
      * @return Processor
      */
-    private static function getProcessor()
+    private function getProcessor()
     {
-        if (self::$processor) {
-            return self::$processor;
+        if ($this->processor) {
+            return $this->processor;
         }
 
-        self::$processor = new Processor();
+        $this->processor = new Processor();
 
-        return self::$processor;
+        return $this->processor;
     }
 }
