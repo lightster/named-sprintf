@@ -5,27 +5,33 @@ namespace Lstr\Sprintf;
 class Sprintf
 {
     /**
+     * @var callable
+     */
+    private $middleware;
+
+    /**
      * @var Processor
      */
     private $processor;
 
     /**
+     * @param callable $middleware
      * @param Processor $processor
      */
-    public function __construct(Processor $processor = null)
+    public function __construct(callable $middleware = null, Processor $processor = null)
     {
+        $this->middleware = $middleware;
         $this->processor = $processor;
     }
 
     /**
      * @param string $format
      * @param array $parameters
-     * @param callable $middleware
      * @return string
      */
-    public function sprintf($format, array $parameters, callable $middleware = null)
+    public function sprintf($format, array $parameters)
     {
-        return $this->getProcessor()->sprintf($format, $parameters, $middleware);
+        return $this->getProcessor()->sprintf($format, $parameters);
     }
 
     /**
@@ -37,7 +43,7 @@ class Sprintf
             return $this->processor;
         }
 
-        $this->processor = new Processor();
+        $this->processor = new Processor($this->middleware);
 
         return $this->processor;
     }

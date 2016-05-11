@@ -58,27 +58,29 @@ class ProcessorTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers ::__construct
      * @covers ::sprintf
      */
     public function testMiddlewarePreprocessesValues()
     {
+        $middleware = function ($name, callable $values) {
+            $value = $values($name);
+
+            if ('script_path' === $name) {
+                return $value;
+            }
+
+            return escapeshellarg($value);
+        };
+
         $this->assertEquals(
             "php bin/my-script 'config/config.php'",
-            $this->getProcessor()->sprintf(
+            $this->getProcessor($middleware)->sprintf(
                 'php %(script_path)s %(config_path)s',
                 [
                     'script_path' => 'bin/my-script',
                     'config_path' => 'config/config.php',
-                ],
-                function ($name, callable $values) {
-                    $value = $values($name);
-
-                    if ('script_path' === $name) {
-                        return $value;
-                    }
-
-                    return escapeshellarg($value);
-                }
+                ]
             ),
             "Test that middleware can be provided to pre-process values"
         );
@@ -223,10 +225,11 @@ class ProcessorTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * @param callable $middleware
      * @return Processor
      */
-    private function getProcessor()
+    private function getProcessor(callable $middleware = null)
     {
-        return new Processor();
+        return new Processor($middleware);
     }
 }
