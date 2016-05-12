@@ -27,22 +27,24 @@ use Lstr\Sprintf\Sprintf;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
-$welcome_message = Sprintf::sprintf(
+$sprintf = new Sprintf();
+
+$welcome_message = $sprintf->sprintf(
     'Hello %(first_name)s %(last_name)s',
     ['first_name' => 'Matt', 'last_name' => 'Light']
 );
 
-$optional_type_message = Sprintf::sprintf(
+$optional_type_message = $sprintf->sprintf(
     'The %(type) is optional and defaults to "%(default_type)"!',
     ['type' => 'type specifier', 'default_type' => '%s']
 );
 
-$pi_message = Sprintf::sprintf(
+$pi_message = $sprintf->sprintf(
     'PI is approximately %(pi).5f, or %(pi).8f if you need more accuracy',
     ['pi' => pi()]
 );
 
-$middleware_message = Sprintf::sprintf(
+$middleware_message = $sprintf->sprintf(
     'Middleware %(action_words) to pre-process %(what)!',
     [
         'action_words' => ['can', 'be', 'used'],
@@ -59,7 +61,7 @@ $middleware_message = Sprintf::sprintf(
     }
 );
 
-echo Sprintf::sprintf(
+echo $sprintf->sprintf(
     "%(welcome)s\n%(optional-type)s\n%(pi)s\n%(middleware)s\n",
     [
         'welcome'       => $welcome_message,
