@@ -23,8 +23,9 @@ class SprintfTest extends PHPUnit_Framework_TestCase
         $processor = $this->getProcessorMock();
         $processor
             ->expects($this->once())
-            ->method('sprintf')
-            ->with($format, $params);
+            ->method('parse')
+            ->with($format)
+            ->willReturn(new ParsedExpression('', []));
 
         $sprintf = new Sprintf(($middleware = null), $processor);
         $sprintf->sprintf($format, $params);
@@ -56,6 +57,35 @@ class SprintfTest extends PHPUnit_Framework_TestCase
     /**
      * @covers ::__construct
      * @covers ::sprintf
+     */
+    public function testMiddlewarePreprocessesValues()
+    {
+        $middleware = function ($name, callable $values) {
+            $value = $values($name);
+
+            if ('script_path' === $name) {
+                return $value;
+            }
+
+            return escapeshellarg($value);
+        };
+
+        $this->assertEquals(
+            "php bin/my-script 'config/config.php'",
+            $this->getSprintf($middleware)->sprintf(
+                'php %(script_path)s %(config_path)s',
+                [
+                    'script_path' => 'bin/my-script',
+                    'config_path' => 'config/config.php',
+                ]
+            ),
+            "Test that middleware can be provided to pre-process values"
+        );
+    }
+
+    /**
+     * @covers ::__construct
+     * @covers ::sprintf
      * @covers ::getProcessor
      */
     public function testMiddlewarePassedToSprintfIsUsedInFormatting()
@@ -75,11 +105,12 @@ class SprintfTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * @param callable $middleware
      * @return Sprintf
      */
-    private function getSprintf()
+    private function getSprintf(callable $middleware = null)
     {
-        return new Sprintf();
+        return new Sprintf($middleware);
     }
 
     /**
@@ -98,7 +129,7 @@ class SprintfTest extends PHPUnit_Framework_TestCase
     private function getProcessorMock()
     {
         return $this->getMockBuilder('Lstr\Sprintf\Processor')
-            ->setMethods(['sprintf'])
+            ->setMethods(['parse'])
             ->getMock();
     }
 

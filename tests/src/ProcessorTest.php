@@ -10,7 +10,7 @@ use PHPUnit_Framework_TestCase;
 class ProcessorTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @covers ::sprintf
+     * @covers ::parse
      * @dataProvider provideNamedParameterTestData
      * @param string $description
      * @param string $expected
@@ -21,16 +21,13 @@ class ProcessorTest extends PHPUnit_Framework_TestCase
     {
         $this->assertEquals(
             $expected,
-            $this->getProcessor()->sprintf(
-                $format,
-                $params
-            ),
+            $this->getProcessor()->parse($format)->format($params),
             $description
         );
     }
 
     /**
-     * @covers ::sprintf
+     * @covers ::parse
      * @dataProvider provideNamedToUnnamedTranslatedTestCases
      * @param string $unnamed_format
      * @param string $named_format
@@ -40,49 +37,8 @@ class ProcessorTest extends PHPUnit_Framework_TestCase
     {
         $this->assertEquals(
             sprintf($unnamed_format, $value),
-            $this->getProcessor()->sprintf($named_format, ['value' => $value]),
+            $this->getProcessor()->parse($named_format)->format(['value' => $value]),
             "Test that advanced cases can use format '{$named_format}'"
-        );
-    }
-
-    /**
-     * @covers ::sprintf
-     * @expectedException \Lstr\Sprintf\Exception
-     */
-    public function testUnprovidedNamedParametersThrowAnException()
-    {
-        $this->getProcessor()->sprintf(
-            'Hello %(missing_param)s',
-            ['full_name' => 'There']
-        );
-    }
-
-    /**
-     * @covers ::__construct
-     * @covers ::sprintf
-     */
-    public function testMiddlewarePreprocessesValues()
-    {
-        $middleware = function ($name, callable $values) {
-            $value = $values($name);
-
-            if ('script_path' === $name) {
-                return $value;
-            }
-
-            return escapeshellarg($value);
-        };
-
-        $this->assertEquals(
-            "php bin/my-script 'config/config.php'",
-            $this->getProcessor($middleware)->sprintf(
-                'php %(script_path)s %(config_path)s',
-                [
-                    'script_path' => 'bin/my-script',
-                    'config_path' => 'config/config.php',
-                ]
-            ),
-            "Test that middleware can be provided to pre-process values"
         );
     }
 

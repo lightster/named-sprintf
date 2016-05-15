@@ -5,20 +5,11 @@ namespace Lstr\Sprintf;
 class Processor
 {
     /**
-     * @param callable|null $middleware
-     */
-    public function __construct(callable $middleware = null)
-    {
-        $this->middleware = $middleware;
-    }
-
-    /**
      * @param string $format
-     * @param array $parameters
-     * @return string
+     * @return ParsedExpression
      * @throws Exception
      */
-    public function sprintf($format, array $parameters)
+    public function parse($format)
     {
         $parameter_map = [];
         $replacement_sets = [];
@@ -79,6 +70,6 @@ class Processor
 
         $parsed_expression = new ParsedExpression($parsed_format, $parameter_map);
 
-        return $parsed_expression->format($parameters, $this->middleware);
+        return $parsed_expression;
     }
 }
