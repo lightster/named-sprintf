@@ -24,10 +24,10 @@ class SprintfTest extends PHPUnit_Framework_TestCase
         $processor
             ->expects($this->once())
             ->method('sprintf')
-            ->with($format, $params, $middleware);
+            ->with($format, $params);
 
-        $sprintf = new Sprintf($processor);
-        $sprintf->sprintf($format, $params, $middleware);
+        $sprintf = new Sprintf(($middleware = null), $processor);
+        $sprintf->sprintf($format, $params);
     }
 
     /**
@@ -51,6 +51,27 @@ class SprintfTest extends PHPUnit_Framework_TestCase
         $sprintf = new Sprintf();
         $this->assertSprintfFormattedUniqueId($sprintf, uniqid());
         $this->assertSprintfFormattedUniqueId($sprintf, uniqid());
+    }
+
+    /**
+     * @covers ::__construct
+     * @covers ::sprintf
+     * @covers ::getProcessor
+     */
+    public function testMiddlewarePassedToSprintfIsUsedInFormatting()
+    {
+        $params = [
+            'abc' => uniqid(),
+        ];
+
+        $sprintf = new Sprintf(function ($name, callable $values_callback) use ($params) {
+            $this->assertSame($params[$name], $values_callback($name));
+            return "{$params[$name]}{$params[$name]}";
+        });
+        $this->assertSame(
+            "a unique id: {$params['abc']}{$params['abc']}",
+            $sprintf->sprintf("a unique id: %(abc)s", $params)
+        );
     }
 
     /**
@@ -89,11 +110,10 @@ class SprintfTest extends PHPUnit_Framework_TestCase
     {
         $format = 'my-format: %(my-value)s';
         $params = ['my-value' => $unique_id];
-        $middleware = $this->getPassthruMiddleware();
 
         $this->assertSame(
             "my-format: {$unique_id}",
-            $sprintf->sprintf($format, $params, $middleware)
+            $sprintf->sprintf($format, $params)
         );
     }
 }
