@@ -31,7 +31,9 @@ class Sprintf
      */
     public function sprintf($format, array $parameters)
     {
-        return $this->getProcessor()->sprintf($format, $parameters);
+        $parsed_expression = $this->getProcessor()->parse($format, $parameters);
+
+        return $parsed_expression->format($parameters, $this->middleware);
     }
 
     /**
