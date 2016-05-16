@@ -27,7 +27,17 @@ use Lstr\Sprintf\Sprintf;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
-$sprintf = new Sprintf();
+$sprintf = new Sprintf(
+    function ($name, callable $values) {
+        $value = $values($name);
+
+        if (is_array($value)) {
+            return implode(' ', $value);
+        }
+
+        return $value;
+    }
+);
 
 $welcome_message = $sprintf->sprintf(
     'Hello %(first_name)s %(last_name)s',
@@ -49,16 +59,7 @@ $middleware_message = $sprintf->sprintf(
     [
         'action_words' => ['can', 'be', 'used'],
         'what'         => 'parameters',
-    ],
-    function ($name, callable $values) {
-        $value = $values($name);
-
-        if (is_array($value)) {
-            return implode(' ', $value);
-        }
-
-        return $value;
-    }
+    ]
 );
 
 echo $sprintf->sprintf(
