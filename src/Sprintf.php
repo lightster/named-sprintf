@@ -45,7 +45,7 @@ class Sprintf
             return $this->processor;
         }
 
-        $this->processor = new Processor($this->middleware);
+        $this->processor = new Processor();
 
         return $this->processor;
     }
