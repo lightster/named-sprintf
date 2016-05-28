@@ -40,6 +40,22 @@ class ImpliedTypesTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Lstr\Sprintf\Middleware\ImpliedTypes::__construct
+     * @covers Lstr\Sprintf\Middleware\ImpliedTypes::process
+     */
+    public function testUnknownTypeIsLeftUnchanged()
+    {
+        $middleware = $this->getImpliedTypesMiddleware();
+        $values_callback = $this->getValuesCallback();
+
+        $this->assertParamType(
+            null,
+            $middleware,
+            ['name' => 'username', 'values_callback' => $values_callback, 'options' => []]
+        );
+    }
+
+    /**
      * @return callback
      */
     private function getValuesCallback()
@@ -71,6 +87,11 @@ class ImpliedTypesTest extends PHPUnit_Framework_TestCase
     {
         $assert_middleware = new MiddlewareAdapter(
             function ($name, callable $values_callback, $options) use ($expected) {
+                if (null === $expected) {
+                    $this->assertFalse(isset($options['type']));
+                    return;
+                }
+
                 $this->assertSame($expected, $options['type']);
             },
             $middleware
