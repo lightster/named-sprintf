@@ -12,12 +12,12 @@ class TypeCastTest extends PHPUnit_Framework_TestCase
      */
     public function testTypeCastMiddlewareIsAppliedToName()
     {
-        $type_cast_middleware = $this->getTypeCastMiddleware();
+        $type_cast = $this->getTypeCastMiddleware();
         $values_callback = $this->getValuesCallback();
 
         $this->assertSame(
             [100, 0, 0],
-            call_user_func($type_cast_middleware, 'red::color-graph', $values_callback, [])
+            call_user_func($type_cast, 'red::color-graph', $values_callback, [])
         );
     }
 
@@ -26,8 +26,8 @@ class TypeCastTest extends PHPUnit_Framework_TestCase
      */
     public function testTypeCastCanBeParent()
     {
-        $type_cast_middleware = $this->getTypeCastMiddleware();
-        $color_graph_middleware = $this->getColorGraphMiddleware($type_cast_middleware);
+        $type_cast = $this->getTypeCastMiddleware();
+        $color_graph_middleware = $this->getColorGraphMiddleware($type_cast);
         $values_callback = $this->getValuesCallback();
 
         $this->assertSame(
@@ -45,12 +45,12 @@ class TypeCastTest extends PHPUnit_Framework_TestCase
      */
     public function testTypeCastSetsTypeOption()
     {
-        $type_cast_middleware = $this->getTypeCastMiddleware();
+        $type_cast = $this->getTypeCastMiddleware();
         $values_callback = $this->getValuesCallback();
 
         $this->assertParams(
             ['name' => 'orange', 'value' => [100, 60, 0], 'options' => ['type' => 'color-graph']],
-            $type_cast_middleware,
+            $type_cast,
             ['name' => 'orange::color-graph', 'values_callback' => $values_callback, 'options' => []]
         );
     }
@@ -61,24 +61,24 @@ class TypeCastTest extends PHPUnit_Framework_TestCase
      */
     public function testTypeIsDefaultedToBlankByDefault()
     {
-        $type_cast_middleware = $this->getTypeCastMiddleware();
+        $type_cast = $this->getTypeCastMiddleware();
         $values_callback = $this->getValuesCallback();
 
         $this->assertParams(
             ['name' => 'orange', 'value' => [100, 60, 0], 'options' => ['type' => '']],
-            $type_cast_middleware,
+            $type_cast,
             ['name' => 'orange', 'values_callback' => $values_callback, 'options' => []]
         );
     }
 
     public function testDefaultTypeCanBeOverridden()
     {
-        $type_cast_middleware = $this->getTypeCastMiddleware('color-graph');
+        $type_cast = $this->getTypeCastMiddleware('color-graph');
         $values_callback = $this->getValuesCallback();
 
         $this->assertParams(
             ['name' => 'orange', 'value' => [100, 60, 0], 'options' => ['type' => 'color-graph']],
-            $type_cast_middleware,
+            $type_cast,
             ['name' => 'orange', 'values_callback' => $values_callback, 'options' => []]
         );
     }
