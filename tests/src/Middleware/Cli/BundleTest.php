@@ -82,14 +82,31 @@ class BundleTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Lstr\Sprintf\Middleware\Cli\Bundle::process
+     * @covers Lstr\Sprintf\Middleware\Cli\Bundle::<private>
+     */
+    public function testTypeCanBeImplied()
+    {
+        $bundle = new Bundle();
+
+        $this->assertSame(
+            "--username='light'",
+            $bundle('long-options', $this->getValuesCallback(), [])
+        );
+    }
+
+    /**
      * @return callback
      */
     private function getValuesCallback()
     {
         return function ($name) {
             $values = [
-                'U'        => 'light',
-                'username' => 'light',
+                'U'            => 'light',
+                'username'     => 'light',
+                'long-options' => [
+                    'username' => 'light',
+                ],
             ];
             if (!isset($values[$name])) {
                 throw new Exception("Param named '{$name}' could not be found.");
