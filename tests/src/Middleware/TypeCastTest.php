@@ -9,6 +9,7 @@ class TypeCastTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @covers Lstr\Sprintf\Middleware\TypeCast::process
+     * @covers Lstr\Sprintf\Middleware\TypeCast::<private>
      */
     public function testTypeCastMiddlewareIsAppliedToName()
     {
@@ -23,6 +24,7 @@ class TypeCastTest extends PHPUnit_Framework_TestCase
 
     /**
      * @covers Lstr\Sprintf\Middleware\TypeCast::process
+     * @covers Lstr\Sprintf\Middleware\TypeCast::<private>
      */
     public function testTypeCastCanBeParent()
     {
@@ -42,6 +44,7 @@ class TypeCastTest extends PHPUnit_Framework_TestCase
 
     /**
      * @covers Lstr\Sprintf\Middleware\TypeCast::process
+     * @covers Lstr\Sprintf\Middleware\TypeCast::<private>
      */
     public function testTypeCastSetsTypeOption()
     {
@@ -58,20 +61,26 @@ class TypeCastTest extends PHPUnit_Framework_TestCase
     /**
      * @covers Lstr\Sprintf\Middleware\TypeCast::__construct
      * @covers Lstr\Sprintf\Middleware\TypeCast::process
+     * @covers Lstr\Sprintf\Middleware\TypeCast::<private>
      */
-    public function testTypeIsDefaultedToBlankByDefault()
+    public function testTypeIsLeftUnsetIfNeitherATypeNorDefaultTypeIsDefined()
     {
         $type_cast = $this->getTypeCastMiddleware();
         $values_callback = $this->getValuesCallback();
 
         $this->assertParams(
-            ['name' => 'orange', 'value' => [100, 60, 0], 'options' => ['type' => '']],
+            ['name' => 'orange', 'value' => [100, 60, 0], 'options' => []],
             $type_cast,
             ['name' => 'orange', 'values_callback' => $values_callback, 'options' => []]
         );
     }
 
-    public function testDefaultTypeCanBeOverridden()
+    /**
+     * @covers Lstr\Sprintf\Middleware\TypeCast::__construct
+     * @covers Lstr\Sprintf\Middleware\TypeCast::process
+     * @covers Lstr\Sprintf\Middleware\TypeCast::<private>
+     */
+    public function testDefaultTypeCanBeSet()
     {
         $type_cast = $this->getTypeCastMiddleware('color-graph');
         $values_callback = $this->getValuesCallback();
