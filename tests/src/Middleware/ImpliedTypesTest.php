@@ -13,12 +13,12 @@ class ImpliedTypesTest extends PHPUnit_Framework_TestCase
      */
     public function testExplicitTypeIsLeftUnchanged()
     {
-        $middleware = $this->getImpliedTypesMiddleware();
+        $implied_types = $this->getImpliedTypesMiddleware();
         $values_callback = $this->getValuesCallback();
 
         $this->assertParamType(
             'explicit',
-            $middleware,
+            $implied_types,
             ['name' => 'param', 'values_callback' => $values_callback, 'options' => ['type' => 'explicit']]
         );
     }
@@ -29,12 +29,12 @@ class ImpliedTypesTest extends PHPUnit_Framework_TestCase
      */
     public function testImpliedTypeIsDefaulted()
     {
-        $middleware = $this->getImpliedTypesMiddleware();
+        $implied_types = $this->getImpliedTypesMiddleware();
         $values_callback = $this->getValuesCallback();
 
         $this->assertParamType(
             'short-options',
-            $middleware,
+            $implied_types,
             ['name' => 'short-options', 'values_callback' => $values_callback, 'options' => []]
         );
     }

@@ -13,12 +13,12 @@ class DefaultTypeTest extends PHPUnit_Framework_TestCase
      */
     public function testExplicitTypeIsLeftUnchanged()
     {
-        $default_type_middleware = $this->getDefaultTypeMiddleware('default');
+        $default_type = $this->getDefaultTypeMiddleware('default');
         $values_callback = $this->getValuesCallback();
 
         $this->assertParamType(
             'explicit',
-            $default_type_middleware,
+            $default_type,
             ['name' => 'param', 'values_callback' => $values_callback, 'options' => ['type' => 'explicit']]
         );
     }
@@ -29,12 +29,12 @@ class DefaultTypeTest extends PHPUnit_Framework_TestCase
      */
     public function testMissingTypeIsDefaulted()
     {
-        $default_type_middleware = $this->getDefaultTypeMiddleware('default');
+        $default_type = $this->getDefaultTypeMiddleware('default');
         $values_callback = $this->getValuesCallback();
 
         $this->assertParamType(
             'default',
-            $default_type_middleware,
+            $default_type,
             ['name' => 'param', 'values_callback' => $values_callback, 'options' => []]
         );
     }
