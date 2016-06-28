@@ -60,10 +60,15 @@ echo $sprintf->sprintf(
 
 ## Middleware
 
-A middleware invokable can be passed to the constructor to process all
-parameter values before they are processed by `sprintf`.  This example
-takes any parameter passed in as an array and converts it to a
-space-delimited string of words before passing the value to `sprintf`:
+Values can be processed before they are formatted by passing middleware
+to the constructor of `Sprintf`.  The middleware can be any sort of
+PHP callable and will be passed the parameter name that is about to be
+formatted and a callable that gives the middleware access to all of
+the values passed to `$sprintf->sprintf()`.
+
+The below example takes any parameter passed in as an array and converts
+it to a space-delimited string of words before passing the value to the
+`sprintf` string formatter:
 
 ```php
 <?php
