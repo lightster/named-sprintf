@@ -18,7 +18,7 @@ Enhance PHP sprintf with Python-style named parameters
 composer require lightster/named-sprintf:dev-master
 ```
 
-## Usage
+## Basic Usage
 
 ```php
 <?php
@@ -27,6 +27,51 @@ use Lstr\Sprintf\Sprintf;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
+$sprintf = new Sprintf();
+
+echo $sprintf->sprintf(
+    "Hello %(first_name)s %(last_name)s\n",
+    ['first_name' => 'Matt', 'last_name' => 'Light']
+);
+?>
+```
+
+## Type Usage
+
+Similar to PHP's built-in `sprintf`, types and format options can be
+passed after the named parameter:
+
+```php
+<?php
+
+$sprintf = new Sprintf();
+
+echo $sprintf->sprintf(
+    "PI is approximately %(pi).5f, or %(pi).8f if you need more accuracy\n",
+    ['pi' => pi()]
+);
+
+echo $sprintf->sprintf(
+    "The type is optional and defaults to string (e.g. 's'): %(name)\n",
+    ['name' => 'Typeless!']
+);
+?>
+```
+
+## Middleware
+
+Values can be processed before they are formatted by passing middleware
+to the constructor of `Sprintf`.  The middleware can be any sort of
+PHP callable and will be passed the parameter name that is about to be
+formatted and a callable that gives the middleware access to all of
+the values passed to `$sprintf->sprintf()`.
+
+The below example takes any parameter passed in as an array and converts
+it to a space-delimited string of words before passing the value to the
+`sprintf` string formatter:
+
+```php
+<?php
 $sprintf = new Sprintf(
     function ($name, callable $values) {
         $value = $values($name);
@@ -39,37 +84,12 @@ $sprintf = new Sprintf(
     }
 );
 
-$welcome_message = $sprintf->sprintf(
-    'Hello %(first_name)s %(last_name)s',
-    ['first_name' => 'Matt', 'last_name' => 'Light']
-);
-
-$optional_type_message = $sprintf->sprintf(
-    'The %(type) is optional and defaults to "%(default_type)"!',
-    ['type' => 'type specifier', 'default_type' => '%s']
-);
-
-$pi_message = $sprintf->sprintf(
-    'PI is approximately %(pi).5f, or %(pi).8f if you need more accuracy',
-    ['pi' => pi()]
-);
-
-$middleware_message = $sprintf->sprintf(
-    'Middleware %(action_words) to pre-process %(what)!',
+echo $sprintf->sprintf(
+    "Middleware %(action_words) to pre-process %(what)!\n",
     [
         'action_words' => ['can', 'be', 'used'],
         'what'         => 'parameters',
     ]
 );
-
-echo $sprintf->sprintf(
-    "%(welcome)s\n%(optional-type)s\n%(pi)s\n%(middleware)s\n",
-    [
-        'welcome'       => $welcome_message,
-        'optional-type' => $optional_type_message,
-        'pi'            => $pi_message,
-        'middleware'    => $middleware_message,
-    ]
-);
-
+?>
 ```
