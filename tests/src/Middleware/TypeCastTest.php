@@ -76,23 +76,6 @@ class TypeCastTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Lstr\Sprintf\Middleware\TypeCast::__construct
-     * @covers Lstr\Sprintf\Middleware\TypeCast::process
-     * @covers Lstr\Sprintf\Middleware\TypeCast::<private>
-     */
-    public function testDefaultTypeCanBeSet()
-    {
-        $type_cast = $this->getTypeCastMiddleware('color-graph');
-        $values_callback = $this->getValuesCallback();
-
-        $this->assertParams(
-            ['name' => 'orange', 'value' => [100, 60, 0], 'options' => ['type' => 'color-graph']],
-            $type_cast,
-            ['name' => 'orange', 'values_callback' => $values_callback, 'options' => []]
-        );
-    }
-
-    /**
      * @return callback
      */
     private function getValuesCallback()
@@ -113,13 +96,12 @@ class TypeCastTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @param string $default_type
      * @param AbstractInvokable $parent_middleware
      * @return AbstractInvokable
      */
-    private function getTypeCastMiddleware($default_type = null, AbstractInvokable $parent_middleware = null)
+    private function getTypeCastMiddleware(AbstractInvokable $parent_middleware = null)
     {
-        return new TypeCast($default_type, $parent_middleware);
+        return new TypeCast($parent_middleware);
     }
 
     /**

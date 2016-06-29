@@ -5,19 +5,11 @@ namespace Lstr\Sprintf\Middleware;
 class TypeCast extends AbstractInvokable
 {
     /**
-     * @var string
-     */
-    private $default_type;
-
-    /**
-     * @param string $default_type
      * @param AbstractInvokable|null $invokable
      */
-    public function __construct($default_type = null, AbstractInvokable $invokable = null)
+    public function __construct(AbstractInvokable $invokable = null)
     {
         parent::__construct($invokable);
-
-        $this->default_type = $default_type;
     }
 
     /**
@@ -43,10 +35,6 @@ class TypeCast extends AbstractInvokable
     {
         if (isset($name_parts[1])) {
             return $name_parts[1];
-        }
-
-        if (null !== $this->default_type) {
-            return $this->default_type;
         }
     }
 }
