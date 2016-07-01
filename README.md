@@ -93,3 +93,37 @@ echo $sprintf->sprintf(
 );
 ?>
 ```
+
+##  Reusable Middleware
+
+Reusable, chainable middleware can be developed by extending the
+AbstractInvokable class.  Some reusable middleware is shipped with
+named-sprintf.
+
+### Cli\Bundle Middleware
+
+The Cli\Bundle middleware is a series of middleware that is bundled
+together to allow for easy command line string generation.
+
+```php
+<?php
+
+use Lstr\Sprintf\Middleware\Cli\Bundle as CliBundle;
+
+$sprintf = new Sprintf(new CliBundle());
+
+echo $sprintf->sprintf(
+    "php bin/some-cli %(sub-command) %(long-options) %(short-options)",
+    [
+        'sub-command'  => 'commit',
+        'long-options' => [
+            'message' => 'Showing off a CLI command',
+            'author'  => 'Matt',
+        ],
+        'short-options' => [
+            'a' => null,
+        ],
+    ]
+) . "\n";
+?>
+```
