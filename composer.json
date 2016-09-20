@@ -8,6 +8,7 @@
         "named",
         "params"
     ],
+    "license": "MIT",
     "homepage": "http://github.com/lightster/named-sprintf",
     "autoload": {
         "psr-4": {
