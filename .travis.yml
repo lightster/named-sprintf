@@ -14,3 +14,6 @@ notifications:
     on_success: change
     on_failure: always
     on_pull_requests: false
+cache:
+  directories:
+  - $HOME/.composer/cache/files
