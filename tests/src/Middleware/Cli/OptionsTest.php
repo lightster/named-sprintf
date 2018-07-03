@@ -5,9 +5,9 @@ namespace Lstr\Sprintf\Middleware\Cli;
 use Exception;
 use Lstr\Sprintf\Middleware\AbstractInvokable;
 use Lstr\Sprintf\Middleware\MiddlewareAdapter;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class OptionsTest extends PHPUnit_Framework_TestCase
+class OptionsTest extends TestCase
 {
     /**
      * @covers Lstr\Sprintf\Middleware\Cli\Options::process

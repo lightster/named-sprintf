@@ -3,9 +3,9 @@
 namespace Lstr\Sprintf\Middleware;
 
 use Exception;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class ArrayBuilderTest extends PHPUnit_Framework_TestCase
+class ArrayBuilderTest extends TestCase
 {
     /**
      * @covers Lstr\Sprintf\Middleware\ArrayBuilder::process

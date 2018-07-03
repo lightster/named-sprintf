@@ -2,12 +2,12 @@
 
 namespace Lstr\Sprintf;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @coversDefaultClass Lstr\Sprintf\Sprintf
  */
-class SprintfTest extends PHPUnit_Framework_TestCase
+class SprintfTest extends TestCase
 {
     /**
      * @covers ::__construct

@@ -1,4 +1,4 @@
-FROM php:5.6-cli-stretch
+FROM php:7.0
 
 RUN apt-get update && apt-get install -y git zip
 

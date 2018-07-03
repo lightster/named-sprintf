@@ -3,9 +3,9 @@
 namespace Lstr\Sprintf\Middleware;
 
 use Exception;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class ImpliedTypesTest extends PHPUnit_Framework_TestCase
+class ImpliedTypesTest extends TestCase
 {
     /**
      * @covers Lstr\Sprintf\Middleware\ImpliedTypes::__construct
