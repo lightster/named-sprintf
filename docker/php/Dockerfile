@@ -1,8 +1,8 @@
-FROM php:latest
+FROM php:7.0
 
 RUN apt-get update && apt-get install -y git zip
 
-RUN pecl install xdebug-2.6.0 \
+RUN pecl install xdebug-2.5.5 \
   && docker-php-ext-enable xdebug
 
 RUN curl -sS https://getcomposer.org/installer >/usr/local/bin/composer-setup.php \
