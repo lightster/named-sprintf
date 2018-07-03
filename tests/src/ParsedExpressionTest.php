@@ -2,12 +2,12 @@
 
 namespace Lstr\Sprintf;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @coversDefaultClass Lstr\Sprintf\ParsedExpression
  */
-class ParsedExpressionTest extends PHPUnit_Framework_TestCase
+class ParsedExpressionTest extends TestCase
 {
     /**
      * @covers ::__construct

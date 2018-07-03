@@ -3,9 +3,9 @@
 namespace Lstr\Sprintf\Middleware;
 
 use Exception;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class TypeCastTest extends PHPUnit_Framework_TestCase
+class TypeCastTest extends TestCase
 {
     /**
      * @covers Lstr\Sprintf\Middleware\TypeCast::process

@@ -3,9 +3,9 @@
 namespace Lstr\Sprintf\Middleware\Cli;
 
 use Exception;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class BundleTest extends PHPUnit_Framework_TestCase
+class BundleTest extends TestCase
 {
     /**
      * @covers Lstr\Sprintf\Middleware\Cli\Bundle::process

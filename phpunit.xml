@@ -23,9 +23,6 @@
     <logging>
         <log type="coverage-html"
              target="tests/log/coverage"
-             charset="UTF-8"
-             yui="true"
-             highlight="false"
              lowUpperBound="70"
              highLowerBound="90"
         />

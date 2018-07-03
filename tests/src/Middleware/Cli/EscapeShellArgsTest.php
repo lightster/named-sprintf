@@ -2,9 +2,9 @@
 
 namespace Lstr\Sprintf\Middleware\Cli;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class EscapeShellArgsTest extends PHPUnit_Framework_TestCase
+class EscapeShellArgsTest extends TestCase
 {
     /**
      * @covers Lstr\Sprintf\Middleware\Cli\EscapeShellArgs::process

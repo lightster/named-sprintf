@@ -2,9 +2,9 @@
 
 namespace Lstr\Sprintf\Middleware;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class InvokableParamsTest extends PHPUnit_Framework_TestCase
+class InvokableParamsTest extends TestCase
 {
     /**
      * @covers Lstr\Sprintf\Middleware\InvokableParams::__construct
