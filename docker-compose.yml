@@ -1,0 +1,9 @@
+version: '3.3'
+services:
+  php:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    volumes:
+      - .:/named-sprintf:cached
+      - ~/.composer/:/root/.composer
