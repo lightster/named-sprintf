@@ -1,0 +1,4 @@
+pipeline:
+  test:
+    image: lightster/named-sprintf:latest
+    commands: php vendor/bin/phpunit
