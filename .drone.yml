@@ -2,4 +2,6 @@
 pipeline:
   test:
     image: lightster/named-sprintf:latest
-    commands: php vendor/bin/phpunit
+    commands:
+      - composer install
+      - php vendor/bin/phpunit
