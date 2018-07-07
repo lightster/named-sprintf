@@ -1,3 +1,4 @@
+# bump 1
 pipeline:
   test:
     image: lightster/named-sprintf:latest
