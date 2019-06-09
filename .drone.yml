@@ -1,0 +1,7 @@
+# bump 1
+pipeline:
+  test:
+    image: lightster/named-sprintf:latest
+    commands:
+      - composer install --no-progress
+      - php vendor/bin/phpunit
